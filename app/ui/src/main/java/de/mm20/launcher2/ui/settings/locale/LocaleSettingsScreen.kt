@@ -208,7 +208,7 @@ fun LocaleSettingsScreen() {
                     )
                 )
                 ListPreference(
-                    icon = R.drawable.measuring_tape_24px,
+                    icon = R.drawable.air_24px,
                     title = stringResource(R.string.preference_wind_speed_uom),
                     value = windSpeedUoM,
                     onValueChanged = {
