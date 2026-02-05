@@ -23,6 +23,7 @@ import de.mm20.launcher2.ktx.isAtLeastApiLevel
 import de.mm20.launcher2.ktx.tryStartActivity
 import de.mm20.launcher2.preferences.MeasurementSystem
 import de.mm20.launcher2.preferences.TimeFormat
+import de.mm20.launcher2.preferences.WindSpeedUoM
 import de.mm20.launcher2.ui.R
 import de.mm20.launcher2.ui.component.preferences.ListPreference
 import de.mm20.launcher2.ui.component.preferences.Preference
@@ -42,6 +43,7 @@ fun LocaleSettingsScreen() {
 
     val timeFormat by viewModel.timeFormat.collectAsStateWithLifecycle(null)
     val measurementSystem by viewModel.measurementSystem.collectAsStateWithLifecycle(null)
+    val windSpeedUoM by viewModel.windSpeedUoM.collectAsStateWithLifecycle(null)
     val transliterator by viewModel.transliterator.collectAsStateWithLifecycle(null)
 
     // The language that has been selected by the user, or null to use the system language
@@ -82,7 +84,11 @@ fun LocaleSettingsScreen() {
                 val ids = availableIds.filter { it.startsWith(filter) }
 
                 for (id in ids) {
-                    transliterators[id] = "${ulocale.displayLanguage.replaceFirstChar { ulocale.displayLanguage.first().uppercase() }} ($id)"
+                    transliterators[id] = "${
+                        ulocale.displayLanguage.replaceFirstChar {
+                            ulocale.displayLanguage.first().uppercase()
+                        }
+                    } ($id)"
                 }
 
                 languages.add(lng)
@@ -94,7 +100,11 @@ fun LocaleSettingsScreen() {
                 val ids = availableIds.filter { it.startsWith(filter) }
 
                 for (id in ids) {
-                    transliterators[id] = "${ulocale.displayScript.replaceFirstChar { ulocale.displayScript.first().uppercase() }} ($id)"
+                    transliterators[id] = "${
+                        ulocale.displayScript.replaceFirstChar {
+                            ulocale.displayScript.first().uppercase()
+                        }
+                    } ($id)"
                 }
                 scripts.add(ulocale.script)
             }
@@ -195,6 +205,19 @@ fun LocaleSettingsScreen() {
                         stringResource(R.string.preference_measurement_system_metric) to MeasurementSystem.Metric,
                         stringResource(R.string.preference_measurement_system_uk) to MeasurementSystem.UnitedKingdom,
                         stringResource(R.string.preference_measurement_system_us) to MeasurementSystem.UnitedStates,
+                    )
+                )
+                ListPreference(
+                    icon = R.drawable.measuring_tape_24px,
+                    title = stringResource(R.string.preference_wind_speed_uom),
+                    value = windSpeedUoM,
+                    onValueChanged = {
+                        if (it != null) viewModel.setWindSpeedUoM(it)
+                    },
+                    items = listOf(
+                        stringResource(R.string.preference_wind_speed_uom_kmh) to WindSpeedUoM.KilometersPerHour,
+                        stringResource(R.string.preference_wind_speed_uom_mps) to WindSpeedUoM.MetersPerSecond,
+                        stringResource(R.string.preference_wind_speed_uom_mph) to WindSpeedUoM.MilesPerHour,
                     )
                 )
             }

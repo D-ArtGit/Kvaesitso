@@ -915,6 +915,7 @@
     <string name="preference_measurement_system_metric">Метрическая</string>
     <string name="preference_measurement_system_uk">Великобритания</string>
     <string name="preference_measurement_system_us">США</string>
+    <string name="preference_wind_speed_uom_mph">Мили в час</string>
     <string name="preference_transliteration">Предпочитаемая транслитерация</string>
     <string name="preference_transliteration_auto">Автоматическая</string>
     <string name="preference_transliteration_disabled">Отключена</string>
@@ -922,4 +923,7 @@
     <string name="create_tag_title">Новый тег</string>
     <string name="edit_tag_title">Изменить тег</string>
     <string name="dialog_discard_unsaved">Выйти без сохранения?</string>
+    <string name="preference_wind_speed_uom">Скорость ветра</string>
+    <string name="preference_wind_speed_uom_kmh">Километры в час</string>
+    <string name="preference_wind_speed_uom_mps">Метры в секунду</string>
 </resources>

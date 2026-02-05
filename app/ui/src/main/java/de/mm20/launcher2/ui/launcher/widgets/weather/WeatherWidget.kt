@@ -72,6 +72,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import de.mm20.launcher2.ktx.tryStartActivity
 import de.mm20.launcher2.preferences.MeasurementSystem
 import de.mm20.launcher2.preferences.TimeFormat
+import de.mm20.launcher2.preferences.WindSpeedUoM
 import de.mm20.launcher2.ui.R
 import de.mm20.launcher2.ui.common.WeatherLocationSearchDialog
 import de.mm20.launcher2.ui.component.Banner
@@ -81,6 +82,7 @@ import de.mm20.launcher2.ui.component.weather.AnimatedWeatherIcon
 import de.mm20.launcher2.ui.component.weather.WeatherIcon
 import de.mm20.launcher2.ui.locals.LocalMeasurementSystem
 import de.mm20.launcher2.ui.locals.LocalTimeFormat
+import de.mm20.launcher2.ui.locals.LocalWindSpeedUoM
 import de.mm20.launcher2.ui.theme.transparency.transparency
 import de.mm20.launcher2.ui.utils.formatPercent
 import de.mm20.launcher2.ui.utils.formatPrecipitation
@@ -107,6 +109,7 @@ fun WeatherWidget(widget: WeatherWidget) {
     val selectedForecast by viewModel.currentForecast
 
     val measurementSystem = LocalMeasurementSystem.current
+    val windSpeedUoM = LocalWindSpeedUoM.current
     val timeFormat = LocalTimeFormat.current
 
     val compactMode = !widget.config.showForecast
@@ -177,7 +180,7 @@ fun WeatherWidget(widget: WeatherWidget) {
         }
 
 
-        CurrentWeather(forecast, measurementSystem, timeFormat)
+        CurrentWeather(forecast, measurementSystem, timeFormat, windSpeedUoM)
 
         if (!compactMode) {
 
@@ -223,6 +226,7 @@ fun CurrentWeather(
     forecast: Forecast,
     measurementSystem: MeasurementSystem,
     timeFormat: TimeFormat,
+    windSpeedUoM: WindSpeedUoM,
 ) {
     val context = LocalContext.current
     val weatherApp = remember {
@@ -414,7 +418,7 @@ fun CurrentWeather(
                                 formatSpeed(
                                     context,
                                     forecast.windSpeed!!.toFloat(),
-                                    measurementSystem
+                                    windSpeedUoM
                                 )
                             } else {
                                 windDirectionAsWord(forecast.windDirection!!)
@@ -464,7 +468,7 @@ fun WeatherTimeSelector(
     selectedForecast: Forecast,
     measurementSystem: MeasurementSystem,
     timeFormat: TimeFormat,
-    onTimeSelected: (Int) -> Unit
+    onTimeSelected: (Int) -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -557,7 +561,7 @@ fun WeatherDaySelector(
     days: List<DailyForecast>,
     selectedDay: DailyForecast,
     onDaySelected: (Int) -> Unit,
-    measurementSystem: MeasurementSystem
+    measurementSystem: MeasurementSystem,
 ) {
     val dateFormat = SimpleDateFormat("EEE")
     val context = LocalContext.current

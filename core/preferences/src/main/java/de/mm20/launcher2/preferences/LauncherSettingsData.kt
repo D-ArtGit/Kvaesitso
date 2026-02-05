@@ -195,6 +195,7 @@ data class LauncherSettingsData internal constructor(
     @JsonNames("clockWidgetTimeFormat")
     val localeTimeFormat: TimeFormat = TimeFormat.System,
     val localeMeasurementSystem: MeasurementSystem = MeasurementSystem.System,
+    val localeWindSpeedUoM: WindSpeedUoM = WindSpeedUoM.KilometersPerHour,
     /**
      * The ID of the transliterator to use. The empty string means to pick a transliterator
      * automatically. null disables the transliterator.
@@ -445,4 +446,11 @@ enum class MeasurementSystem {
     @SerialName("metric") Metric,
     @SerialName("uk") UnitedKingdom,
     @SerialName("us") UnitedStates,
+}
+
+@Serializable
+enum class WindSpeedUoM {
+    @SerialName("mps") MetersPerSecond,
+    @SerialName("kmh") KilometersPerHour,
+    @SerialName("mph") MilesPerHour,
 }
